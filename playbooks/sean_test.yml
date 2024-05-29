@@ -1,0 +1,12 @@
+---
+- name: Output all environment variables
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Gather environment variables
+      shell: printenv
+      register: env_vars
+
+    - name: Display environment variables
+      debug:
+        msg: "{{ env_vars.stdout_lines }}"
