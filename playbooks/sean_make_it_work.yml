@@ -1,0 +1,20 @@
+---
+- name: Execute gcloud command with environment variables
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Execute gcloud compute regions list
+      shell: |
+        gcloud compute regions list \
+          --account=${GCE_EMAIL} \
+          --project=${GCP_PROJECT} \
+          --credential-file-override=${GCE_CREDENTIALS_FILE_PATH}
+      register: gcloud_output
+      environment:
+        GCE_EMAIL: "{{ lookup('env', 'GCE_EMAIL') }}"
+        GCP_PROJECT: "{{ lookup('env', 'GCP_PROJECT') }}"
+        GCE_CREDENTIALS_FILE_PATH: "{{ lookup('env', 'GCE_CREDENTIALS_FILE_PATH') }}"
+
+    - name: Display gcloud command output
+      debug:
+        msg: "{{ gcloud_output.stdout_lines }}"
