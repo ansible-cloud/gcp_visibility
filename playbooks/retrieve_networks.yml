@@ -1,0 +1,13 @@
+---
+- name: Retrieve networks
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Get all virtual networks
+      google.cloud.gcp_compute_network_info:
+        auth_kind: serviceaccount
+      register: gcp_networks
+
+    - name: Print gcp_networks var
+      ansible.builtin.debug:
+        msg: "{{ gcp_networks }}"

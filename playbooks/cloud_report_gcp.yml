@@ -1,0 +1,17 @@
+---
+- name: Retrieve info
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Load retrieve info role
+      ansible.builtin.include_role:
+        name: "../roles/retrieve_info_gcp"
+
+- name: Build report with facts
+  hosts: reportsrvr1
+  gather_facts: true
+  tasks:
+
+    - name: Build a report
+      ansible.builtin.include_role:
+        name: "../roles/build_report_gcp"

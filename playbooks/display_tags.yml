@@ -1,0 +1,26 @@
+---
+- name: Retrieve hosts with your_tags filter
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Retrieve vms from your_location
+      google.cloud.gcp_compute_instance_info:
+        zone: "{{ gcp_zone }}"
+        project: "{{ gcp_project }}"
+        auth_kind: serviceaccount
+      register: retrieved_info
+
+    - name: Print retrieved_info
+      ansible.builtin.debug:
+        msg: "{{ retrieved_info }}"
+
+    - name: Print labels
+      ansible.builtin.debug:
+        msg:
+          - name: "{{ item.name }}"
+          - Labels: "{{ item.labels | default('NO *Labels* exist') }}"
+          - power_state: "{{ item.status }}"
+      loop: "{{ retrieved_info.resources | list }}"
+      loop_control:
+        label: "virtual machine info and associated Labels"

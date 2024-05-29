@@ -1,0 +1,14 @@
+---
+- name: Retrieve regions
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Get list of all regions
+      ansible.builtin.command: gcloud compute regions list
+      changed_when: false
+      register: all_regions
+
+    - name: Print var all_regions
+      ansible.builtin.debug:
+        msg: "{{ all_regions }}"

@@ -1,0 +1,45 @@
+---
+# - name: Basic usage
+#   ansible.builtin.debug:
+#     msg:
+#       - "'AZURE_CLIENT_ID {{ lookup('ansible.builtin.env', 'AZURE_CLIENT_ID') }}'"
+#       - "'AZURE_SUBSCRIPTION_ID {{ lookup('ansible.builtin.env', 'AZURE_SUBSCRIPTION_ID') }}'"
+#       - "'AZURE_TENANT {{ lookup('ansible.builtin.env', 'AZURE_TENANT') }}'"
+
+- name: Get list of all regions
+  ansible.builtin.command: gcloud compute regions list
+  changed_when: false
+  register: all_regions
+
+- name: Print var all_regions
+  ansible.builtin.debug:
+    msg: "{{ all_regions }}"
+
+- name: Get all virtual networks
+  google.cloud.gcp_compute_network_info:
+    auth_kind: serviceaccount
+  register: gcp_networks
+
+- name: Print gcp_networks var
+  ansible.builtin.debug:
+    msg: "{{ gcp_networks }}"
+
+- name: Get all VMs
+  google.cloud.gcp_compute_instance_info:
+    zone: "{{ gcp_zone }}"
+    project: "{{ gcp_project }}"
+    auth_kind: serviceaccount
+  register: gcp_vms
+
+- name: Print gcp_vms
+  ansible.builtin.debug:
+    msg: "{{ gcp_vms }}"
+
+- name: Get facts for network interfaces
+  ansible.builtin.command: gcloud compute instances network-interfaces
+  changed_when: false
+  register: network_interfaces
+
+- name: Print network interfaces
+  ansible.builtin.debug:
+    msg: "{{ network_interfaces }}"

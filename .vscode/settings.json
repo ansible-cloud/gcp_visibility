@@ -1,0 +1,10 @@
+{
+    "ansible.python.interpreterPath": "/usr/local/bin/python3",
+    "yaml.schemas": {
+        "kubernetes": "*.yaml ",
+        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook": [
+            "file:///Users/hmourad/Documents/GitHub/gcp_visibility/roles/retrieve_info_gcp/tasks/main.yml"
+        ],
+        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks": "file:///Users/hmourad/Documents/GitHub/gcp_visibility/roles/build_report_gcp/tasks/main.yml"
+    }
+}
