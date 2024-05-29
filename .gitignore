@@ -1,2 +1,6 @@
 
 .DS_Store
+.ansible.cfg
+*.gz
+.vscode/*
+settings.json
