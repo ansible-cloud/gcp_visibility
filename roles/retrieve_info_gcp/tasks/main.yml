@@ -1,19 +1,20 @@
 ---
-# - name: Basic usage
-#   ansible.builtin.debug:
-#     msg:
-#       - "'AZURE_CLIENT_ID {{ lookup('ansible.builtin.env', 'AZURE_CLIENT_ID') }}'"
-#       - "'AZURE_SUBSCRIPTION_ID {{ lookup('ansible.builtin.env', 'AZURE_SUBSCRIPTION_ID') }}'"
-#       - "'AZURE_TENANT {{ lookup('ansible.builtin.env', 'AZURE_TENANT') }}'"
-
 - name: Get list of all regions
-  ansible.builtin.command: gcloud compute regions list
-  changed_when: false
+  ansible.builtin.shell: |
+    gcloud compute regions list \
+      --account=${GCE_EMAIL} \
+      --project=${GCP_PROJECT} \
+      --credential-file-override=${GCE_CREDENTIALS_FILE_PATH}
   register: all_regions
+  changed_when: false
+  environment:
+    GCE_EMAIL: "{{ lookup('env', 'GCE_EMAIL') }}"
+    GCP_PROJECT: "{{ lookup('env', 'GCP_PROJECT') }}"
+    GCE_CREDENTIALS_FILE_PATH: "{{ lookup('env', 'GCE_CREDENTIALS_FILE_PATH') }}"
 
 - name: Print var all_regions
   ansible.builtin.debug:
-    msg: "{{ all_regions }}"
+    msg: "{{ all_regions.stdout_lines }}"
 
 - name: Get all virtual networks
   google.cloud.gcp_compute_network_info:
@@ -36,9 +37,17 @@
     msg: "{{ gcp_vms }}"
 
 - name: Get facts for network interfaces
-  ansible.builtin.command: gcloud compute instances network-interfaces
-  changed_when: false
+  ansible.builtin.shell: |
+    gcloud compute instances network-interfaces \
+      --account=${GCE_EMAIL} \
+      --project=${GCP_PROJECT} \
+      --credential-file-override=${GCE_CREDENTIALS_FILE_PATH}
   register: network_interfaces
+  changed_when: false
+  environment:
+    GCE_EMAIL: "{{ lookup('env', 'GCE_EMAIL') }}"
+    GCP_PROJECT: "{{ lookup('env', 'GCP_PROJECT') }}"
+    GCE_CREDENTIALS_FILE_PATH: "{{ lookup('env', 'GCE_CREDENTIALS_FILE_PATH') }}"
 
 - name: Print network interfaces
   ansible.builtin.debug:
