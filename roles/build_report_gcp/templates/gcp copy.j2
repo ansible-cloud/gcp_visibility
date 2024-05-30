@@ -1,16 +1,16 @@
 <!-- INTERNAL TABLE FOR Ansible -->
-{% set gcp_vars = hostvars["localhost"] %}
-{% set real_location = gcp_vars.all_regions.response | selectattr('metadata.regionType', 'equalto', "Physical") %}
+{% set azure_vars = hostvars["localhost"] %}
+{% set real_location = azure_vars.all_regions.response | selectattr('metadata.regionType', 'equalto', "Physical") %}
 
 <div id="accordion">
 {% for location in real_location %}
-{% set running = gcp_vars.gcp_vms.vms | selectattr('location', 'equalto', location.name) | selectattr('power_state', 'equalto', "running") | length %}
-{% set stopped = gcp_vars.gcp_vms.vms | selectattr('location', 'equalto', location.name) | selectattr('power_state', 'equalto', "stopped") | length %}
-{% set total = gcp_vars.gcp_vms.vms | selectattr('location', 'equalto', location.name) | length %}
+{% set running = azure_vars.azure_vms.vms | selectattr('location', 'equalto', location.name) | selectattr('power_state', 'equalto', "running") | length %}
+{% set stopped = azure_vars.azure_vms.vms | selectattr('location', 'equalto', location.name) | selectattr('power_state', 'equalto', "stopped") | length %}
+{% set total = azure_vars.azure_vms.vms | selectattr('location', 'equalto', location.name) | length %}
 <div>
 <h3><div id="region_title">{{ location.name }} - {{ location["metadata"]["physicalLocation"] | default('unknown') }}</div><div class="instances_highlight">{% if total > 0 %}{% if running > 0 %}<div class="instances_running">{% endif %}<span class="ui-accordion-header-icon ui-icon ui-icon-power"></span>{{ running }} instances running{% if running > 0 %}</div>{% endif %}<div class="instances_stopped"><span class="ui-accordion-header-icon ui-icon ui-icon-stop"></span>{{ stopped }} stopped ({{ total }} total)</div>{% endif %}</div></h3>
 <div class="net_content">
-{% set region_specific_networks = gcp_vars.gcp_networks.virtualnetworks | selectattr('location', 'equalto', location.name) %}
+{% set region_specific_networks = azure_vars.azure_networks.virtualnetworks | selectattr('location', 'equalto', location.name) %}
 <p class="description">This region contains {{ region_specific_networks | length }} Virtual Network(s)</p>
 <table class="net_info">
 <tbody>
@@ -23,10 +23,10 @@
     <th class="vpc_info">Network Interface Details</th>
     <th class="vpc_info">Virtual<br>Machines</th>
   </tr>
-{% set region_specific_nics = gcp_vars.network_interfaces.networkinterfaces | selectattr('location', 'equalto', location.name) %}
+{% set region_specific_nics = azure_vars.network_interfaces.networkinterfaces | selectattr('location', 'equalto', location.name) %}
 {% set nic_names = region_specific_nics | map(attribute='name') | list %}
 {% set filtered_vms = [] %}
-{% for vm in gcp_vars.gcp_vms.vms %}
+{% for vm in azure_vars.azure_vms.vms %}
 {% if nic_names | intersect(vm['network_interface_names'])  %}
 {{- filtered_vms.append(vm) -}}
 {% endif %}

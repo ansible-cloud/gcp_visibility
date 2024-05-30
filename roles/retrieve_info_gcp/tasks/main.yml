@@ -4,7 +4,8 @@
     gcloud compute regions list \
       --account=${GCE_EMAIL} \
       --project=${GCP_PROJECT} \
-      --credential-file-override=${GCE_CREDENTIALS_FILE_PATH}
+      --credential-file-override=${GCE_CREDENTIALS_FILE_PATH} \
+      --format=json
   register: all_regions
   changed_when: false
   environment:
