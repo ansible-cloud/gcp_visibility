@@ -38,7 +38,7 @@
 
 - name: Get facts for network interfaces
   ansible.builtin.shell: |
-    gcloud compute instances network-interfaces \
+    gcloud compute instances network-interfaces get-effective-firewalls \
       --account=${GCE_EMAIL} \
       --project=${GCP_PROJECT} \
       --credential-file-override=${GCE_CREDENTIALS_FILE_PATH}
