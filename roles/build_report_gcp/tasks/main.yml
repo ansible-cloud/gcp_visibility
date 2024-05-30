@@ -53,6 +53,7 @@
     - "webpage_logo.png"
     - "redhat-ansible-logo.svg"
     - "gcp.png"
+    - "gcp.jpg"
 
 - name: Print variables
   ansible.builtin.debug:
