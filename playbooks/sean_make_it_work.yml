@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
     - name: Execute gcloud compute regions list
-      shell: |
+      ansible.builtin.shell: |
         gcloud compute regions list \
           --account=${GCE_EMAIL} \
           --project=${GCP_PROJECT} \
@@ -16,5 +16,5 @@
         GCE_CREDENTIALS_FILE_PATH: "{{ lookup('env', 'GCE_CREDENTIALS_FILE_PATH') }}"
 
     - name: Display gcloud command output
-      debug:
+      ansible.builtin.debug:
         msg: "{{ gcloud_output.stdout_lines }}"
