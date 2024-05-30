@@ -15,7 +15,7 @@
   </tr>
   <tr>
     <td>Ansible core version</td>
-    <td class="sub_net_info">{{ ansible_version.full }}</td>
+    <td class="sub_net_info">{{ ansible_version.full | default('unknown') }}</td>
   </tr>
   <tr>
     <td>Ansible Python</td>
