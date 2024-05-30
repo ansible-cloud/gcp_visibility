@@ -11,6 +11,7 @@
           --project=${GCP_PROJECT} \
           --credential-file-override=${GCE_CREDENTIALS_FILE_PATH}
       register: all_regions
+      changed_when: false
       environment:
         GCE_EMAIL: "{{ lookup('env', 'GCE_EMAIL') }}"
         GCP_PROJECT: "{{ lookup('env', 'GCP_PROJECT') }}"
