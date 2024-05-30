@@ -18,9 +18,10 @@
     - name: Print Labels
       ansible.builtin.debug:
         msg:
-          - Name: "{{ item.name }}"
-          - Labels: "{{ item.labels | default('NO *Labels* exist') }}"
-          - Power State: "{{ item.status }}"
+          - "VM Instance Name:             {{ item.name | default('The tag *Name* Does not exist') }}"
+          - "VM Instance ID:               {{ item.id }}"
+          - "VM Labels:                    {{ item.labels | default('NO *Labels* exist') }}"
+          - "VM Instance State:            {{ item.status }}"
       loop: "{{ retrieved_info.resources | list }}"
       loop_control:
         label: "virtual machine info and associated labels"
