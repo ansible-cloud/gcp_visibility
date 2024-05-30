@@ -20,7 +20,7 @@
         msg:
           - Name: "{{ item.name }}"
           - Labels: "{{ item.labels | default('NO *Labels* exist') }}"
-          - Power_state: "{{ item.power_state }}"
+          - Power State: "{{ item.status }}"
       loop: "{{ retrieved_info.resources | list }}"
       loop_control:
         label: "virtual machine info and associated labels"
