@@ -41,16 +41,12 @@ collapsible: true
               <table class="net_info">
               <tbody>
                 <tr>
-                  <td>Azure Client ID</td>
-                  <td class="sub_net_info">{{ lookup('ansible.builtin.env', 'AZURE_CLIENT_ID') }}</td>
+                  <td>Google Cloud Login</td>
+                  <td class="sub_net_info">{{ lookup('env', 'GCE_EMAIL') }}</td>
                 </tr>
                 <tr>
-                  <td>Azure Subscription ID</td>
-                  <td class="sub_net_info">{{ lookup('ansible.builtin.env', 'AZURE_SUBSCRIPTION_ID') }}</td>
-                </tr>
-                <tr>
-                  <td>Azure Tenant</td>
-                  <td class="sub_net_info">{{ lookup('ansible.builtin.env', 'AZURE_TENANT') }}</td>
+                  <td>Google Cloud Project</td>
+                  <td class="sub_net_info">{{ lookup('env', 'GCP_PROJECT') }}</td>
                 </tr>
               </tbody>
               </table>
@@ -63,9 +59,9 @@ collapsible: true
 
             </td>
 
-            <td>
+            {% comment %} <td>
             {% include 'gcp.j2' %}
-            </td>
+            </td> {% endcomment %}
         </tr>
 
     </tbody>
