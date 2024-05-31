@@ -1,11 +1,11 @@
 ---
 - name: Get list of all regions
   ansible.builtin.shell: |
-    gcloud compute regions list \
+    gcloud compute regions list --uri \
       --account=${GCE_EMAIL} \
       --project=${GCP_PROJECT} \
       --credential-file-override=${GCE_CREDENTIALS_FILE_PATH} \
-      --format=json
+      | sed -e 's,.*/,,'
   register: all_regions
   changed_when: false
   environment:
