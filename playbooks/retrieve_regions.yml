@@ -6,11 +6,12 @@
   tasks:
     - name: Get list of all regions
       ansible.builtin.shell: |
-        gcloud compute regions list | grep ^NAME | sed -e 's/NAME: //' \
+        gcloud compute regions list \
           --account=${GCE_EMAIL} \
           --project=${GCP_PROJECT} \
           --credential-file-override=${GCE_CREDENTIALS_FILE_PATH} \
-          --format=json
+          | grep ^NAME | sed -e 's/NAME: //'
+
       register: all_regions
       changed_when: false
       environment:
