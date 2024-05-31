@@ -9,8 +9,8 @@
         gcloud compute regions list \
           --account=${GCE_EMAIL} \
           --project=${GCP_PROJECT} \
-          --credential-file-override=${GCE_CREDENTIALS_FILE_PATH} \
-          | grep ^NAME | sed -e 's/NAME: //'
+          --credential-file-override=${GCE_CREDENTIALS_FILE_PATH}
+#          | grep ^NAME | sed -e 's/NAME: //'
 
       register: all_regions
       changed_when: false
