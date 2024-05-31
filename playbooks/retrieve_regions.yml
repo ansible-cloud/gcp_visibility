@@ -10,8 +10,7 @@
           --account=${GCE_EMAIL} \
           --project=${GCP_PROJECT} \
           --credential-file-override=${GCE_CREDENTIALS_FILE_PATH} \
-          |sed -e 's,.*/,,'
-#          | grep ^NAME | sed -e 's/NAME: //'
+          | sed -e 's,.*/,,'
       register: all_regions
       changed_when: false
       environment:
@@ -21,4 +20,4 @@
 
     - name: Print var all_regions
       ansible.builtin.debug:
-        msg: "{{ all_regions.stdout_lines[1] }}"
+        msg: "{{ all_regions.stdout_lines }}"
