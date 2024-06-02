@@ -4,18 +4,18 @@
   connection: local
   gather_facts: false
   tasks:
-    - name: Retrieve vms from your_location
+    - name: Retrieve VMs from your environment
       google.cloud.gcp_compute_instance_info:
         zone: "{{ gcp_zone }}"
         project: "{{ gcp_project }}"
         auth_kind: serviceaccount
       register: retrieved_info
 
-    - name: Print retrieved_info
+    - name: Print the Number of VMs
       ansible.builtin.debug:
         msg: "There are {{ retrieved_info.resources | length }} virtual machine(s) that match your filter"
 
-    - name: Print Labels
+    - name: Print the VM details
       ansible.builtin.debug:
         msg:
           - "VM Instance Name:             {{ item.name | default('The tag *Name* Does not exist') }}"
