@@ -11,9 +11,9 @@
     - name: Print Virtual Network Information
       ansible.builtin.debug:
         msg:
-          - Network Name:               "{{ item.name }}"
-          - Network ID:                 "{{ item.id }}"
-          - Auto Create Subnetworks:    "{{ item.autoCreateSubnetworks }}"
+          - Network Name: "{{ item.name }}"
+          - Network ID: "{{ item.id }}"
+          - Auto Create Subnetworks: "{{ item.autoCreateSubnetworks }}"
       loop: "{{ gcp_networks.resources | list }}"
       loop_control:
         label: "Virtual Network Information"
