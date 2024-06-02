@@ -5,7 +5,7 @@
   gather_facts: false
   tasks:
     - name: Get list of all regions
-      ansible.builtin.shell:
+      ansible.builtin.shell: |
         gcloud compute regions list --uri \
           --account=${GCE_EMAIL} \
           --project=${GCP_PROJECT} \
