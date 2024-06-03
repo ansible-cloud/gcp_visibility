@@ -1,12 +1,12 @@
 <!-- INTERNAL TABLE FOR Ansible -->
 
 {% set gcp_vars = hostvars["localhost"] %}
-{% set real_location = gcp_vars.all_regions.stdout_lines %}
+{% set real_location = gcp_vars.all_regions %}
 
 <div id="accordion">
 
 
-  {% for location in real_location %}
+  {% for region in real_location %}
     {#
   {% set running = gcp_vars.gcp_vms.resources | selectattr('gcp_vars.gcp_vms.resources.status', 'equalto', "RUNNING") | length %}
   {% set stopped = gcp_vars.gcp_vms.resources | selectattr('gcp_vars.gcp_vms.resources.status', 'equalto', "TERMINATED") | length %}
@@ -24,7 +24,7 @@
     <div>
 
       <h3>
-        <div id="region_title">{{ real_location[location] }}</div>
+        <div id="region_title">{{ real_location.stdout_lines }}</div>
           {#
         <div class="instances_highlight">{% if total > 0 %}{% if running > 0 %}<div class="instances_running">{% endif %}<span class="ui-accordion-header-icon ui-icon ui-icon-power"></span>{{ running }} instances running{% if running > 0 %}</div>{% endif %}
           <div class="instances_stopped"><span class="ui-accordion-header-icon ui-icon ui-icon-stop"></span>{{ stopped }} stopped ({{ total }} total)</div>{% endif %}
