@@ -11,7 +11,7 @@
   {% set stopped = gcp_vars.gcp_vms.resources.name | selectattr('gcp_vars.gcp_vms.resources.status', 'equalto', "TERMINATED") | length %}
   {% set total = gcp_vars.gcp_vms.resources | length %}
    #}
-   
+
   <!-- copy of above.-->
   {#{% for location in real_location %}
   {% set running = gcp_vars.gcp_vms.resources.name | selectattr('location', 'equalto', real_location) | selectattr('status', 'equalto', "RUNNING") | length %}
@@ -73,7 +73,7 @@
       </div>
     </div>
 
-  {% endfor %}
+  {# {% endfor %}  #}
 
 
 </div>
