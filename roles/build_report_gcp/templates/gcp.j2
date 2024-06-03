@@ -9,7 +9,6 @@
   {% set running = gcp_vars.gcp_vms.resources.name | selectattr('location', 'equalto', location) | selectattr('status', 'equalto', "RUNNING") | length %}
   {% set stopped = gcp_vars.gcp_vms.resources.name | selectattr('location', 'equalto', location) | selectattr('status', 'equalto', "TERMINATED") | length %}
   {% set total = gcp_vars.gcp_vms.resources.name | selectattr('location', 'equalto', location) | length %}
-  {% endfor %}
 
   <div>
     {#
@@ -58,6 +57,6 @@
       </table>
     </div>
   </div>
-{#  {% endfor %} #}
+{% endfor %}
 </div>
 <!-- END INTERNAL TABLE FOR Ansible -->
