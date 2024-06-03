@@ -1,16 +1,14 @@
 <!-- INTERNAL TABLE FOR Ansible -->
 
-{#
 {% set gcp_vars = hostvars["localhost"] %}
 {% set real_location = gcp_vars.all_regions.stdout_lines %}
-#}
 
 <div id="accordion">
 {#
-  {% for location in real_location %}
-  {% set running = gcp_vars.gcp_vms.vms | selectattr('location', 'equalto', location.name) | selectattr('status', 'equalto', "RUNNING") | length %}
-  {% set stopped = gcp_vars.gcp_vms.vms | selectattr('location', 'equalto', location.name) | selectattr('status', 'equalto', "TERMINATED") | length %}
-  {% set total = gcp_vars.gcp_vms.vms | selectattr('location', 'equalto', location.name) | length %}
+  {% for stdout_lines in real_location %}
+  {% set running = gcp_vars.gcp_vms.name | selectattr('location', 'equalto', location) | selectattr('status', 'equalto', "RUNNING") | length %}
+  {% set stopped = gcp_vars.gcp_vms.name | selectattr('location', 'equalto', location) | selectattr('status', 'equalto', "TERMINATED") | length %}
+  {% set total = gcp_vars.gcp_vms.name | selectattr('location', 'equalto', location) | length %}
 #}
   <div>
     {#
