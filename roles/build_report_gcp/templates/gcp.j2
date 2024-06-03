@@ -5,10 +5,11 @@
 
 <div id="accordion">
 
-  {% for stdout_lines in real_location %}
-  {% set running = gcp_vars.gcp_vms.name | selectattr('location', 'equalto', location) | selectattr('status', 'equalto', "RUNNING") | length %}
-  {% set stopped = gcp_vars.gcp_vms.name | selectattr('location', 'equalto', location) | selectattr('status', 'equalto', "TERMINATED") | length %}
-  {% set total = gcp_vars.gcp_vms.name | selectattr('location', 'equalto', location) | length %}
+  {% for location in real_location %}
+  {% set running = gcp_vars.gcp_vms.resources.name | selectattr('location', 'equalto', location) | selectattr('status', 'equalto', "RUNNING") | length %}
+  {% set stopped = gcp_vars.gcp_vms.resources.name | selectattr('location', 'equalto', location) | selectattr('status', 'equalto', "TERMINATED") | length %}
+  {% set total = gcp_vars.gcp_vms.resources.name | selectattr('location', 'equalto', location) | length %}
+  {% endfor %}
 
   <div>
     {#
