@@ -40,20 +40,20 @@
   register: gcp_vms
   loop: "{{ all_zones.stdout_lines }}"
 
-- name: Print the Number of VMs
-  ansible.builtin.debug:
-    msg: "There are {{ gcp_vms }} virtual machine(s) that match your filter"
+# - name: Print the Number of VMs
+#   ansible.builtin.debug:
+#     msg: "There are {{ gcp_vms }} virtual machine(s) that match your filter"
 
-- name: Print the VM details
-  ansible.builtin.debug:
-    msg:
-      - "VM Instance Name:             {{ item.name | default('The tag *Name* Does not exist') }}"
-      - "VM Instance ID:               {{ item.id }}"
-      - "VM Labels:                    {{ item.labels | default('NO *Labels* exist') }}"
-      - "VM Instance State:            {{ item.status }}"
-  loop: "{{ gcp_vms.resources | list }}"
-  loop_control:
-    label: "virtual machine info and associated labels"
+# - name: Print the VM details
+#   ansible.builtin.debug:
+#     msg:
+#       - "VM Instance Name:             {{ item.name | default('The tag *Name* Does not exist') }}"
+#       - "VM Instance ID:               {{ item.id }}"
+#       - "VM Labels:                    {{ item.labels | default('NO *Labels* exist') }}"
+#       - "VM Instance State:            {{ item.status }}"
+#   loop: "{{ gcp_vms.resources | list }}"
+#   loop_control:
+#     label: "virtual machine info and associated labels"
 
 # - name: Get facts for network interfaces
 #   ansible.builtin.shell: |
