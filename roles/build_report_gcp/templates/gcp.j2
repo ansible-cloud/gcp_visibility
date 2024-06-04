@@ -7,9 +7,9 @@
 
   {% for location in real_location %}
 
-  {% set running = gcp_vars.gcp_vms.resources  | selectattr('.status', 'equalto', "RUNNING") | length %}
-  {% set stopped = gcp_vars.gcp_vms.resources | selectattr('status', 'equalto', "TERMINATED") | length %}
-  {% set total = gcp_vars.gcp_vms.resources | length %}
+  {% set running = gcp_vars.gcp_vms.resources  | selectattr('gcp_vars.all_regions.stdout_lines.[]', 'equalto', location) | selectattr('.status', 'equalto', "RUNNING") | length %}
+  {% set stopped = gcp_vars.gcp_vms.resources | selectattr('gcp_vars.all_regions.stdout_lines.[]', 'equalto', location) | selectattr('status', 'equalto', "TERMINATED") | length %}
+  {% set total = gcp_vars.gcp_vms.resources | selectattr('gcp_vars.all_regions.stdout_lines.[]', 'equalto', location) | length %}
 
 
   <!-- copy of section above earlier.-->
