@@ -37,8 +37,8 @@
     zone: "{{ item }}"
     project: "{{ gcp_project }}"
     auth_kind: serviceaccount
-  register: gcp_vms
   loop: "{{ all_zones.stdout_lines }}"
+  register: gcp_vms
 
 - name: Print the Number of VMs
   ansible.builtin.debug:
