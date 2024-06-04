@@ -18,13 +18,13 @@
               <th class="vpc_info">Virtual Machine Status</th>
             </tr>
               {% for zone in gcp_vars.gcp_vms.results %}
-                {% for vm in zone.resources %}
-            <tr>                
-              <td>vm.name</td>
-              <td>vm.id</td>
-              <td>vm.status</td>
+            <tr>
+              {% for vm in zone.resources %}
+              <td>{{ vm.name }}</td>
+              <td>{{ vm.id }}</td>
+              <td>{{ vm.status }}</td>
+              {% endfor %}
             </tr>
-                {% endfor %}
               {% endfor %}
           </tbody>
         </table>
@@ -32,4 +32,5 @@
     </div>
     {% endfor %}  
 </div>
+
 <!-- END INTERNAL TABLE FOR Ansible -->
