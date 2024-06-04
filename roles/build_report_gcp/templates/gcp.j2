@@ -8,6 +8,8 @@
     <div>
       <h3>
         <div id="region_title">{{ location.item }}</div>
+        <div class="instances_highlight">{% if location.resources | length > 0 %}</div>
+        <div class="instances_stopped"><span class="ui-accordion-header-icon ui-icon ui-icon-stop"></span>({{ location.resources | length }} total)</div>{% endif %}</div>
       </h3>
       <div class="net_content">
         <table class="net_info">
