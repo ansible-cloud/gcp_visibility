@@ -4,7 +4,7 @@
 {% set real_location = gcp_vars.all_zones.stdout_lines %}
 
 <div id="accordion">
-  {% for location in real_location %}
+  {% for location in gcp_vars.gcp_vms.results %}
     <div>
       <h3>
         <div id="region_title">{{ location }}</div>
@@ -17,15 +17,13 @@
               <th class="vpc_info">Virtual Machine ID </th>
               <th class="vpc_info">Virtual Machine Status</th>
             </tr>
-              {% for zone in gcp_vars.gcp_vms.results %}
-            <tr>
-              {% for vm in zone.resources %}
-              <td>{{ vm.name }}</td>
-              <td>{{ vm.id }}</td>
-              <td>{{ vm.status }}</td>
-              {% endfor %}
-            </tr>
-              {% endfor %}
+            {% for vm in location.resources %}
+              <tr>
+                <td>{{ vm.name }}</td>
+                <td>{{ vm.id }}</td>
+                <td>{{ vm.status }}</td>
+              </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>

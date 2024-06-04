@@ -40,9 +40,9 @@
   register: gcp_vms
   loop: "{{ all_zones.stdout_lines }}"
 
-# - name: Print the Number of VMs
-#   ansible.builtin.debug:
-#     msg: "There are {{ gcp_vms }} virtual machine(s) that match your filter"
+- name: Print the Number of VMs
+  ansible.builtin.debug:
+    msg: "{{ gcp_vms }}"
 
 # - name: Print the VM details
 #   ansible.builtin.debug:
