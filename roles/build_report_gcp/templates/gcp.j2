@@ -16,12 +16,16 @@
               <th class="vpc_info">Virtual Machine name</th>
               <th class="vpc_info">Virtual Machine ID </th>
               <th class="vpc_info">Virtual Machine Status</th>
+              <th class="vpc_info">Private IP</th>
+              <th class="vpc_info">Public IP</th>             
             </tr>
             {% for vm in location.resources %}
               <tr>
                 <td>{{ vm.name }}</td>
                 <td>{{ vm.id }}</td>
                 <td>{{ vm.status }}</td>
+                <td>{{ vm.networkInterfaces[0].networkIP | default ("no Private IP") }}</td>
+                <td>{{ vm.networkInterfaces[0].accessConfigs[0].natIP | default ("no Public IP") }}</td>                
               </tr>
             {% endfor %}
           </tbody>
