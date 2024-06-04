@@ -1,21 +1,21 @@
 ---
-- name: Get list of all regions
+- name: Get list of all Zones
   ansible.builtin.shell: |
-    gcloud compute regions list --uri \
+    gcloud compute zones list --uri \
       --account=${GCE_EMAIL} \
       --project=${GCP_PROJECT} \
       --credential-file-override=${GCE_CREDENTIALS_FILE_PATH} \
       | sed -e 's,.*/,,'
-  register: all_regions
+  register: all_zones
   changed_when: false
   environment:
     GCE_EMAIL: "{{ lookup('env', 'GCE_EMAIL') }}"
     GCP_PROJECT: "{{ lookup('env', 'GCP_PROJECT') }}"
     GCE_CREDENTIALS_FILE_PATH: "{{ lookup('env', 'GCE_CREDENTIALS_FILE_PATH') }}"
 
-- name: Print var all_regions
+- name: Print var all_zones
   ansible.builtin.debug:
-    msg: "{{ all_regions.stdout_lines }}"
+    msg: "{{ all_zones.stdout_lines }}"
 
 - name: Get all virtual networks
   google.cloud.gcp_compute_network_info:
@@ -34,14 +34,15 @@
 
 - name: Retrieve VMs from your environment
   google.cloud.gcp_compute_instance_info:
-    zone: "{{ gcp_zone }}"
+    zone: "{{ item }}"
     project: "{{ gcp_project }}"
     auth_kind: serviceaccount
   register: gcp_vms
+  loop: "{{ all_zones.stdout_lines }}"
 
 - name: Print the Number of VMs
   ansible.builtin.debug:
-    msg: "There are {{ gcp_vms.resources | length }} virtual machine(s) that match your filter"
+    msg: "There are {{ gcp_vms }} virtual machine(s) that match your filter"
 
 - name: Print the VM details
   ansible.builtin.debug:
