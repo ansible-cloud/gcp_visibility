@@ -5,11 +5,23 @@
 
 <div id="accordion">
   {% for location in gcp_vars.gcp_vms.results %}
+
+    {% set running = location.resources | selectattr('status', 'equalto', "RUNNING") | length %}  
+
+    {% set stopped = location.resources | selectattr('status', 'equalto', "TERMINATED") | length %}
+
     <div>
       <h3>
         <div id="region_title">{{ location.item }}</div>
           {% if location.resources | length > 0 %}
-            <div class="instances_stopped"><span class="ui-accordion-header-icon ui-icon ui-icon-stop"></span>({{ location.resources | length }} Total Virtual Machines)</div>
+            {#<div class="instances_stopped"><span class="ui-accordion-header-icon ui-icon ui-icon-stop"></span>({{ location.resources | length }} Total Virtual Machines)
+            </div>#}
+
+            <div class="instances_running"><span class="ui-accordion-header-icon ui-icon ui-icon-power"></span>({{ running }} running VMs)
+            </div>
+            <div class="instances_stopped"><span class="ui-accordion-header-icon ui-icon ui-icon-stop"></span>{{ stopped }} stopped VMs ({{ location.resources | length }} Total Virtual Machines)
+            </div>
+
           {% endif %}
       </h3>
       <div class="net_content">
