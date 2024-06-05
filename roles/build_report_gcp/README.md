@@ -1,11 +1,7 @@
-# network.toolkit.build_report
-
-To use this multi-platform network automation build_report role:
-
 ## Task example:
 
 ```
-- name: build a report
-  include_role:
-    name: build_report
+- name: Build a report
+  ansible.builtin.include_role:
+    name: "../roles/build_report_gcp"
 ```

@@ -1,21 +1,23 @@
 ---
-- name: Execute gcloud command with environment variables
-  hosts: all
+- name: Retrieve Region ZONES
+  hosts: localhost
+  connection: local
   gather_facts: false
   tasks:
-    - name: Execute gcloud compute regions list
+    - name: Get list of ALL Region ZONES
       ansible.builtin.shell: |
-        gcloud compute regions list \
+        gcloud compute zones list --uri \
           --account=${GCE_EMAIL} \
           --project=${GCP_PROJECT} \
-          --credential-file-override=${GCE_CREDENTIALS_FILE_PATH}
-      register: gcloud_output
+          --credential-file-override=${GCE_CREDENTIALS_FILE_PATH} \
+          | sed -e 's,.*/,,'
+      register: all_zones
       changed_when: false
       environment:
         GCE_EMAIL: "{{ lookup('env', 'GCE_EMAIL') }}"
         GCP_PROJECT: "{{ lookup('env', 'GCP_PROJECT') }}"
         GCE_CREDENTIALS_FILE_PATH: "{{ lookup('env', 'GCE_CREDENTIALS_FILE_PATH') }}"
 
-    - name: Display gcloud command output
+    - name: Print var all_zones
       ansible.builtin.debug:
-        msg: "{{ gcloud_output.stdout_lines }}"
+        msg: "{{ all_zones.stdout_lines }}"
